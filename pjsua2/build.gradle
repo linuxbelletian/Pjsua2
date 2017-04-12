@@ -5,7 +5,7 @@ plugins {
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 
-group="com.holly"
+group="org.pjsip.pjsua2"
 version='2.6'
 
 android {
@@ -48,7 +48,7 @@ install {
             inceptionYear '2017'
 
             packaging 'aar'
-            groupId 'com.holly'
+            groupId 'org.pjsip.pjsua2'
             artifactId 'pjsua2'
             version '2.6'
 
