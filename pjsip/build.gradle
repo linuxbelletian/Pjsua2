@@ -1,0 +1,93 @@
+plugins {
+    id "com.jfrog.bintray" version "1.7.3"
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group="com.holly"
+version='2.6'
+
+android {
+    compileSdkVersion androidCompileSdkVersion
+    buildToolsVersion androidBuildToolVersion
+
+    defaultConfig {
+        minSdkVersion androidMinSdkVersion
+        targetSdkVersion androidTargetVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:' + androidSupportVersion
+    testCompile 'junit:junit:4.12'
+}
+
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            name 'pjsua2'
+            description 'Pjsua2 lib'
+            url "None"
+            inceptionYear '2017'
+
+            packaging 'aar'
+            groupId 'com.holly'
+            artifactId 'pjsua2'
+            version '2.6'
+
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+
+            developers {
+                developer {
+                    name 'Aber Tian'
+                }
+            }
+        }
+    }
+}
+
+bintray {
+
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    user = properties.getProperty('bintrayUser')
+    key = properties.getProperty('bintrayApiKey')
+
+    configurations = ['archives']
+    pkg {
+        repo = 'maven'
+        name = 'pjsua2'
+        userOrg = user
+        vcsUrl = 'http://www.pjsip.org/docs/book-latest/html/'
+        licenses = ['Apache-2.0']
+        version {
+            name = '2.6'
+            desc = 'pjsua2 2.6'
+            vcsTag = 'v2.6'
+            attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
+        }
+    }
+}
